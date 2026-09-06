@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)file:///C:/Users/Vip/Downloads/%D8%AC%D8%B1%D8%AF_%D8%A7%D9%84%D9%85%D8%AD%D9%84_1.html -->
+<html lang="ar" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="جرد المحل">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#2B1D14">
+<title>جرد المحل</title>
+<style>
+  :root{
+    --paper:#F7F1E6;
+    --paper-2:#EFE6D4;
+    --ink:#2B1D14;
+    --ink-soft:#6B5B4C;
+    --coffee:#8B5E34;
+    --coffee-dark:#5C3D22;
+    --gold:#C89B3C;
+    --brick:#A63D2F;
+    --sage:#5B7B54;
+    --line:#DCCFB4;
+    --radius:14px;
+    font-size:16px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system, BlinkMacSystemFont, "SF Arabic", "Segoe UI", Tahoma, Arial, sans-serif;
+    font-variant-numeric: tabular-nums;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom));
+    padding-top: env(safe-area-inset-top);
+    min-height:100%;
+  }
+  .bg-texture{
+    position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(139,94,52,.06), transparent 40%),
+      radial-gradient(circle at 85% 30%, rgba(200,155,60,.08), transparent 45%);
+  }
+  header.app-header{
+    position:sticky; top:0; z-index:20;
+    background:linear-gradient(180deg, var(--coffee-dark), var(--coffee) 90%);
+    color:#fff;
+    padding:14px 18px 16px;
+    box-shadow:0 3px 10px rgba(43,29,20,.25);
+  }
+  header.app-header .row{display:flex; align-items:center; justify-content:space-between;}
+  header.app-header h1{
+    font-size:19px; margin:0; font-weight:800; letter-spacing:.2px;
+    display:flex; align-items:center; gap:8px;
+  }
+  header.app-header h1 .mark{
+    width:26px; height:26px; border-radius:8px; background:var(--gold);
+    display:flex; align-items:center; justify-content:center; font-size:15px;
+    box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.4);
+  }
+  header.app-header .sub{font-size:12px; opacity:.85; margin-top:2px; font-weight:500;}
+  main{ position:relative; z-index:1; padding:14px 14px 8px; max-width:640px; margin:0 auto; }
+
+  /* Receipt-style summary card */
+  .receipt{
+    background:#fff;
+    border-radius:var(--radius);
+    box-shadow:0 6px 18px rgba(43,29,20,.10), 0 1px 0 rgba(43,29,20,.05);
+    position:relative;
+    padding:16px 18px 14px;
+    margin:14px 0 18px;
+  }
+  .receipt::before, .receipt::after{
+    content:""; position:absolute; right:14px; left:14px; height:9px;
+    background-image: radial-gradient(circle, var(--paper) 4.5px, transparent 4.6px);
+    background-size: 14px 14px; background-position: 0 0; background-repeat: repeat-x;
+  }
+  .receipt::before{ top:-5px; }
+  .receipt::after{ bottom:-5px; transform:rotate(180deg); }
+  .receipt .r-title{ font-weight:800; font-size:14px; color:var(--coffee-dark); display:flex; justify-content:space-between; align-items:center;}
+  .receipt .r-date{ font-size:12px; color:var(--ink-soft); margin-top:2px;}
+  .receipt .r-line{ border-top:1px dashed var(--line); margin:10px 0;}
+  .receipt .r-grid{ display:grid; grid-template-columns:1fr 1fr; gap:8px 14px;}
+  .receipt .r-item{ display:flex; flex-direction:column; }
+  .receipt .r-item .l{ font-size:11px; color:var(--ink-soft);}
+  .receipt .r-item .v{ font-size:17px; font-weight:800; }
+  .receipt .total{ margin-top:10px; display:flex; justify-content:space-between; align-items:baseline; }
+  .receipt .total .l{ font-size:13px; font-weight:700; color:var(--coffee-dark);}
+  .receipt .total .v{ font-size:24px; font-weight:900; color:var(--coffee-dark);}
+
+  .section-title{ font-size:13px; font-weight:800; color:var(--ink-soft); margin:18px 4px 8px; display:flex; align-items:center; justify-content:space-between;}
+  .section-title .badge{ background:var(--paper-2); color:var(--coffee-dark); border-radius:20px; padding:2px 9px; font-size:11px; font-weight:700;}
+
+  .cat-card{
+    background:#fff; border-radius:var(--radius); overflow:hidden;
+    box-shadow:0 2px 8px rgba(43,29,20,.06);
+    margin-bottom:14px; border:1px solid rgba(43,29,20,.05);
+  }
+  .cat-head{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:10px 14px; background:var(--paper-2); cursor:pointer; user-select:none;
+  }
+  .cat-head .name{ font-weight:800; font-size:14.5px; color:var(--coffee-dark); display:flex; align-items:center; gap:8px;}
+  .cat-head .chev{ transition:transform .2s ease; color:var(--ink-soft); font-size:12px;}
+  .cat-head.collapsed .chev{ transform:rotate(-90deg); }
+  .cat-head .sum{ font-size:13px; font-weight:800; color:var(--gold);}
+  .cat-body{ overflow:hidden; }
+  .cat-body.collapsed{ display:none; }
+
+  .item-row{ padding:10px 14px; border-top:1px solid var(--paper-2); }
+  .item-row .top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;}
+  .item-row .iname{ font-weight:700; font-size:14px; }
+  .item-row .iprice{ font-size:11.5px; color:var(--ink-soft);}
+  .item-row .fields{ display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
+  .field{ display:flex; flex-direction:column; gap:3px; }
+  .field label{ font-size:10.5px; color:var(--ink-soft); font-weight:700; }
+  .field input{
+    width:100%; border:1.5px solid var(--line); border-radius:9px; padding:8px 6px;
+    font-size:14px; text-align:center; background:var(--paper); color:var(--ink);
+    font-family:inherit; font-variant-numeric: tabular-nums;
+  }
+  .field input:focus{ outline:none; border-color:var(--coffee); background:#fff; }
+  .item-row .result{ margin-top:7px; display:flex; justify-content:space-between; font-size:12.5px; padding-top:6px; border-top:1px dashed var(--paper-2);}
+  .item-row .result b{ font-weight:800; }
+  .result .sold-ok{ color:var(--sage); }
+  .result .sold-warn{ color:var(--brick); }
+  .result .uncounted{ color:var(--ink-soft); font-style:italic; }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    border:none; border-radius:11px; padding:12px 16px; font-size:14.5px; font-weight:800;
+    font-family:inherit; cursor:pointer; -webkit-appearance:none;
+  }
+  .btn-primary{ background:var(--coffee); color:#fff; box-shadow:0 3px 10px rgba(139,94,52,.3);}
+  .btn-primary:active{ background:var(--coffee-dark); }
+  .btn-ghost{ background:var(--paper-2); color:var(--coffee-dark); }
+  .btn-danger{ background:#fff; color:var(--brick); border:1.5px solid var(--brick); }
+  .btn-block{ width:100%; }
+  .btn:disabled{ opacity:.45; }
+  .actions-bar{ display:flex; gap:10px; margin:18px 4px 30px; }
+
+  .empty{ text-align:center; padding:40px 20px; color:var(--ink-soft); }
+  .empty .big{ font-size:30px; margin-bottom:8px;}
+
+  /* Tab bar */
+  nav.tabbar{
+    position:fixed; bottom:0; right:0; left:0; z-index:30;
+    background:rgba(247,241,230,.92); backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);
+    padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+    display:flex; justify-content:space-around;
+  }
+  nav.tabbar button{
+    background:none; border:none; display:flex; flex-direction:column; align-items:center; gap:3px;
+    color:var(--ink-soft); font-family:inherit; font-size:10.5px; font-weight:700; padding:4px 14px; cursor:pointer;
+  }
+  nav.tabbar button .ic{ font-size:20px; }
+  nav.tabbar button.active{ color:var(--coffee-dark); }
+  nav.tabbar button.active .ic{ transform:translateY(-1px); }
+
+  /* زر عائم ثابت فوق شريط التبويبات (إلغاء/إنهاء الجرد) - يضمن ظهوره دايمًا بدون الحاجة لسكرول */
+  #stickyFooterRoot{ position:relative; z-index:26; }
+  .sticky-actions{
+    position:fixed; right:0; left:0; z-index:26;
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    display:flex; gap:10px; padding:10px 14px 12px;
+    background:linear-gradient(180deg, rgba(247,241,230,0) 0%, var(--paper) 45%);
+  }
+
+  .card{ background:#fff; border-radius:var(--radius); padding:14px 16px; box-shadow:0 2px 8px rgba(43,29,20,.06); margin-bottom:12px; border:1px solid rgba(43,29,20,.05);}
+  .row-between{ display:flex; justify-content:space-between; align-items:center; }
+  .muted{ color:var(--ink-soft); font-size:12.5px; }
+  .pill{ background:var(--paper-2); color:var(--coffee-dark); border-radius:20px; padding:3px 10px; font-size:11px; font-weight:700; }
+
+  /* forms */
+  .form-group{ margin-bottom:12px; }
+  .form-group label{ display:block; font-size:12px; font-weight:800; color:var(--ink-soft); margin-bottom:5px; }
+  .form-group input, .form-group select{
+    width:100%; border:1.5px solid var(--line); border-radius:10px; padding:11px 12px;
+    font-size:15px; background:var(--paper); color:var(--ink); font-family:inherit;
+  }
+  .form-group input:focus, .form-group select:focus{ outline:none; border-color:var(--coffee); background:#fff; }
+  .form-row{ display:flex; gap:10px; }
+  .form-row > *{ flex:1; }
+
+  .modal-backdrop{
+    position:fixed; inset:0; background:rgba(43,29,20,.45); z-index:50;
+    display:flex; align-items:flex-end; justify-content:center;
+  }
+  .modal{
+    background:var(--paper); width:100%; max-width:640px; border-radius:20px 20px 0 0;
+    padding:18px 18px calc(22px + env(safe-area-inset-bottom)); max-height:88vh; overflow:auto;
+    animation: slideup .22s ease;
+  }
+  @keyframes slideup{ from{ transform:translateY(30px); opacity:.4;} to{ transform:translateY(0); opacity:1;} }
+  .modal h2{ font-size:16px; margin:2px 0 14px; color:var(--coffee-dark); }
+  .modal .close-x{ position:absolute; top:14px; left:18px; background:var(--paper-2); border:none; border-radius:50%; width:30px; height:30px; font-size:15px; color:var(--ink-soft); }
+
+  .list-item{ display:flex; justify-content:space-between; align-items:center; padding:11px 4px; border-top:1px solid var(--paper-2); gap:8px; }
+  .list-item > div:first-child{ min-width:0; overflow:hidden; }
+  .list-item .li-main{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .list-item:first-child{ border-top:none; }
+  .list-item .li-main{ font-weight:700; font-size:14px; }
+  .list-item .li-sub{ font-size:11.5px; color:var(--ink-soft); }
+  .li-actions{ display:flex; gap:5px; flex-shrink:0; }
+  .icon-btn{ background:var(--paper-2); border:none; border-radius:8px; width:32px; height:32px; font-size:14px; color:var(--coffee-dark); cursor:pointer; }
+  .icon-btn.danger{ color:var(--brick); }
+  .icon-btn:disabled{ opacity:.3; }
+
+  .sort-btn{
+    border:1.5px solid var(--line); background:#fff; color:var(--ink-soft);
+    border-radius:20px; padding:7px 13px; font-size:12.5px; font-weight:700; font-family:inherit; cursor:pointer;
+  }
+  .sort-btn.active{ background:var(--coffee); border-color:var(--coffee); color:#fff; }
+
+  .toast{
+    position:fixed; bottom:calc(92px + env(safe-area-inset-bottom)); right:50%; transform:translateX(50%);
+    background:var(--ink); color:#fff; padding:10px 18px; border-radius:20px; font-size:13px; font-weight:700;
+    z-index:60; box-shadow:0 6px 16px rgba(0,0,0,.25); opacity:0; pointer-events:none; transition:opacity .25s, transform .25s;
+  }
+  .toast.show{ opacity:1; transform:translateX(50%) translateY(-4px); }
+
+  select{ -webkit-appearance:none; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236B5B4C'%3E%3Cpath d='M5.5 7.5l4.5 4.5 4.5-4.5' stroke='%236B5B4C' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:left 10px center; padding-left:30px; }
+
+  /* منطقة الطباعة/حفظ PDF - مخفية على الشاشة، تظهر فقط عند الطباعة */
+  #printArea{ display:none; }
+  @media print{
+    body *{ visibility:hidden; }
+    #printArea, #printArea *{ visibility:visible; }
+    #printArea{
+      display:block; position:absolute; top:0; right:0; left:0; padding:20px;
+      font-family:-apple-system, "SF Arabic", Tahoma, Arial, sans-serif; color:#111; direction:rtl;
+    }
+    .p-header{ text-align:center; margin-bottom:14px; border-bottom:2px solid #111; padding-bottom:10px; }
+    .p-header h1{ font-size:20px; margin:0 0 4px; }
+    .p-header .p-date{ font-size:14px; font-weight:700; }
+    .p-header .p-meta{ font-size:11px; color:#555; margin-top:3px; }
+    .p-table{ width:100%; border-collapse:collapse; font-size:12.5px; }
+    .p-table th{ border-bottom:1.5px solid #111; padding:6px 4px; text-align:right; }
+    .p-table td{ border-bottom:1px solid #ccc; padding:5px 4px; text-align:right; }
+    .p-table td:nth-child(2), .p-table td:nth-child(3), .p-table td:nth-child(4),
+    .p-table th:nth-child(2), .p-table th:nth-child(3), .p-table th:nth-child(4){ text-align:center; }
+    .p-cat-row td{ background:#eee; font-weight:800; border-bottom:1px solid #111; }
+    .p-subtotal td{ font-weight:800; border-top:1px solid #111; border-bottom:2px solid #111; }
+    .p-muted{ color:#888; font-style:italic; text-align:center !important; }
+    .p-grand{ text-align:left; font-size:16px; font-weight:900; margin-top:16px; border-top:2px solid #111; padding-top:10px; }
+    @page{ margin:14mm; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-texture"></div>
+
+<header class="app-header">
+  <div class="row">
+    <h1><span class="mark">☕</span> جرد المحل</h1>
+  </div>
+  <div class="sub" id="headerSub">جرد سريع للكميات المباعة والمتبقي</div>
+</header>
+
+<main id="main">
+    <div class="receipt">
+      <div class="r-title"><span>جرد اليوم</span><span class="pill" id="countedPill">0/14 تم التسليم</span></div>
+      <div class="r-date">الأحد، ٦ أيلول ٢٠٢٦</div>
+      <div class="r-line"></div>
+      <div class="r-grid">
+        <div class="r-item"><span class="l">كاش ثابت (دينار)</span>
+          <input type="number" inputmode="decimal" style="border:none;background:transparent;font-size:17px;font-weight:800;padding:0;width:70px;font-family:inherit;color:var(--ink)" value="50" id="cashFloatInput">
+        </div>
+        <div class="r-item"><span class="l">عدد الأصناف</span><span class="v">14</span></div>
+      </div>
+      <div class="r-line"></div>
+      <div class="total"><span class="l">صافي المبيعات</span><span class="v" id="grandTotalVal">٠ د.أ</span></div>
+    </div>
+  <div class="cat-card">
+      <div class="cat-head " data-cat="دخان">
+        <span class="name"><span class="chev">▾</span>دخان</span>
+        <span class="sum">٠ د.أ</span>
+      </div>
+      <div class="cat-body ">
+        <div class="item-row" data-item="mtpny73b6c6p4r">
+          <div class="top">
+            <span class="iname">بارلمنت</span>
+            <span class="iprice">٢٫٦ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div>
+        <div class="item-row" data-item="mtpny73btdzei9">
+          <div class="top">
+            <span class="iname">مالبورو</span>
+            <span class="iprice">٢٫٨٥ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div>
+        <div class="item-row" data-item="mtpny73btyxmfj">
+          <div class="top">
+            <span class="iname">مالبورو تتش</span>
+            <span class="iprice">٢٫٦ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div>
+        <div class="item-row" data-item="mtpny73becm6xq">
+          <div class="top">
+            <span class="iname">كنت</span>
+            <span class="iprice">٢٫٦ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div>
+        <div class="item-row" data-item="mtpny73b6n7z0j">
+          <div class="top">
+            <span class="iname">جولد كوست</span>
+            <span class="iprice">٢٫٤ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div>
+        <div class="item-row" data-item="mtpny73bzl51tp">
+          <div class="top">
+            <span class="iname">ونستون</span>
+            <span class="iprice">٢٫٦ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div></div></div><div class="cat-card">
+      <div class="cat-head " data-cat="مشروبات">
+        <span class="name"><span class="chev">▾</span>مشروبات</span>
+        <span class="sum">٠ د.أ</span>
+      </div>
+      <div class="cat-body ">
+        <div class="item-row" data-item="mtpny73b4dat1l">
+          <div class="top">
+            <span class="iname">قهوة</span>
+            <span class="iprice">٠٫٦ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div>
+        <div class="item-row" data-item="mtpny73be897mb">
+          <div class="top">
+            <span class="iname">نسكافيه</span>
+            <span class="iprice">٠٫٥ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div>
+        <div class="item-row" data-item="mtpny73bwtrb0f">
+          <div class="top">
+            <span class="iname">شاي / أعشاب</span>
+            <span class="iprice">٠٫٢٥ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div></div></div><div class="cat-card">
+      <div class="cat-head " data-cat="بطاقات">
+        <span class="name"><span class="chev">▾</span>بطاقات</span>
+        <span class="sum">٠ د.أ</span>
+      </div>
+      <div class="cat-body ">
+        <div class="item-row" data-item="mtpny73br60mqd">
+          <div class="top">
+            <span class="iname">رصيد بطاقات</span>
+            <span class="iprice">١ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div></div></div><div class="cat-card">
+      <div class="cat-head " data-cat="سكاكر">
+        <span class="name"><span class="chev">▾</span>سكاكر</span>
+        <span class="sum">٠ د.أ</span>
+      </div>
+      <div class="cat-body ">
+        <div class="item-row" data-item="mtpny73buncaxw">
+          <div class="top">
+            <span class="iname">شوكولاتة 50</span>
+            <span class="iprice">٠٫٥ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div>
+        <div class="item-row" data-item="mtpny73bqnp0u0">
+          <div class="top">
+            <span class="iname">كيك 25</span>
+            <span class="iprice">٠٫٢٥ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div></div></div><div class="cat-card">
+      <div class="cat-head " data-cat="ثلاجة">
+        <span class="name"><span class="chev">▾</span>ثلاجة</span>
+        <span class="sum">٠ د.أ</span>
+      </div>
+      <div class="cat-body ">
+        <div class="item-row" data-item="mtpny73bnqn77s">
+          <div class="top">
+            <span class="iname">عصير ربيع</span>
+            <span class="iprice">٠٫٦٥ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div>
+        <div class="item-row" data-item="mtpny73biksouw">
+          <div class="top">
+            <span class="iname">مياه صغير</span>
+            <span class="iprice">٠٫٢٥ د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="0">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="0">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result"><span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span></div>
+        </div></div></div><div style="height:96px;"></div></main>
+
+<nav class="tabbar">
+  <button data-tab="today" class="active"><span class="ic">🧾</span>اليوم</button>
+  <button data-tab="items"><span class="ic">📦</span>الأصناف</button>
+  <button data-tab="history"><span class="ic">📖</span>السجل</button>
+</nav>
+
+<div id="toast" class="toast"></div>
+<div id="modalRoot"></div>
+<div id="printArea"></div>
+<div id="stickyFooterRoot">
+    <div class="sticky-actions">
+      <button class="btn btn-danger" id="cancelSessionBtn">إلغاء الجرد</button>
+      <button class="btn btn-primary btn-block" id="closeSessionBtn">إنهاء وحفظ الجرد</button>
+    </div>
+  </div>
+
+<script>
+/* =========================================================
+   بيانات وتخزين
+========================================================= */
+const STORAGE_KEY = "jard_almahal_v1";
+const DEFAULT_CATEGORIES = ["دخان","مشروبات","بطاقات","سكاكر","ثلاجة"];
+const DEFAULT_ITEMS = [
+  {name:"بارلمنت", category:"دخان", price:2.6, stock:0},
+  {name:"مالبورو", category:"دخان", price:2.85, stock:0},
+  {name:"مالبورو تتش", category:"دخان", price:2.6, stock:0},
+  {name:"كنت", category:"دخان", price:2.6, stock:0},
+  {name:"جولد كوست", category:"دخان", price:2.4, stock:0},
+  {name:"ونستون", category:"دخان", price:2.6, stock:0},
+  {name:"قهوة", category:"مشروبات", price:0.6, stock:0},
+  {name:"نسكافيه", category:"مشروبات", price:0.5, stock:0},
+  {name:"شاي / أعشاب", category:"مشروبات", price:0.25, stock:0},
+  {name:"رصيد بطاقات", category:"بطاقات", price:1, stock:0},
+  {name:"شوكولاتة 50", category:"سكاكر", price:0.5, stock:0},
+  {name:"كيك 25", category:"سكاكر", price:0.25, stock:0},
+  {name:"عصير ربيع", category:"ثلاجة", price:0.65, stock:0},
+  {name:"مياه صغير", category:"ثلاجة", price:0.25, stock:0},
+];
+
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const s = JSON.parse(raw);
+      // توافق مع نسخ قديمة ما فيها ترتيب مخصص
+      let maxOrder = -1;
+      s.items.forEach((it, idx)=>{
+        if(typeof it.order !== "number"){ it.order = idx; }
+        if(it.order > maxOrder) maxOrder = it.order;
+      });
+      if(typeof s.nextOrder !== "number") s.nextOrder = maxOrder + 1;
+      if(!s.sortMode) s.sortMode = "manual";
+      return s;
+    }
+  }catch(e){ console.error(e); }
+  // first run: seed defaults
+  const items = DEFAULT_ITEMS.map((it, idx) => ({id:uid(), order:idx, ...it}));
+  return { categories:[...DEFAULT_CATEGORIES], items, sessions:[], cashFloat:50, nextOrder: items.length, sortMode:"manual" };
+}
+function saveState(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+let state = loadState();
+
+/* =========================================================
+   أدوات مساعدة
+========================================================= */
+function fmt(n){
+  if(n === null || n === undefined || isNaN(n)) return "٠";
+  const r = Math.round(n*100)/100;
+  return r.toLocaleString("ar-JO", {maximumFractionDigits:2});
+}
+function todayISO(){
+  const d = new Date();
+  return d.toISOString().slice(0,10);
+}
+function fmtDateAr(iso){
+  const d = new Date(iso+"T00:00:00");
+  return d.toLocaleDateString("ar-JO", {weekday:"long", year:"numeric", month:"long", day:"numeric"});
+}
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(()=> t.classList.remove("show"), 1800);
+}
+function itemsByCategory(items){
+  const map = {};
+  items.forEach(it=>{
+    if(!map[it.category]) map[it.category] = [];
+    map[it.category].push(it);
+  });
+  const mode = state.sortMode || "manual";
+  Object.keys(map).forEach(cat=>{
+    map[cat].sort((a,b)=>{
+      if(mode === "price_desc") return b.price - a.price;
+      if(mode === "price_asc") return a.price - b.price;
+      if(mode === "name") return a.name.localeCompare(b.name, "ar");
+      return (a.order||0) - (b.order||0); // manual
+    });
+  });
+  return map;
+}
+
+/* =========================================================
+   جلسة اليوم (الجرد الحالي)
+========================================================= */
+function getOpenSession(){
+  let s = state.sessions.find(s=>!s.closed);
+  return s;
+}
+function startSession(){
+  const s = {
+    id: uid(),
+    date: todayISO(),
+    closed:false,
+    cashFloat: state.cashFloat || 50,
+    entries: state.items.map(it => ({
+      itemId: it.id, opening: it.stock, received:0,
+      closing:null, // تسليم - عدّ نهاية المناوبة، يبدأ فارغ
+    }))
+  };
+  state.sessions.unshift(s);
+  saveState();
+  return s;
+}
+function ensureEntriesForNewItems(session){
+  // لو انضاف صنف جديد بعد ما بدأت الجلسة
+  state.items.forEach(it=>{
+    if(!session.entries.find(e=>e.itemId===it.id)){
+      session.entries.push({itemId:it.id, opening:it.stock, received:0, closing:null});
+    }
+  });
+}
+
+function computeEntry(entry){
+  const opening = Number(entry.opening)||0;   // استلام: العدد عند بداية المناوبة
+  const received = Number(entry.received)||0; // مستودع: الكمية المضافة أثناء المناوبة
+  const counted = entry.closing !== null && entry.closing !== "" && entry.closing !== undefined;
+  let sold = null;
+  if(counted){
+    const closing = Number(entry.closing)||0; // تسليم: العدد عند نهاية المناوبة
+    sold = opening + received - closing;
+  }
+  return {opening, received, counted, sold};
+}
+
+function sessionTotals(session){
+  const map = itemsByCategoryOf(session);
+  let grand = 0;
+  const catTotals = {};
+  state.items.forEach(it=>{
+    const entry = session.entries.find(e=>e.itemId===it.id);
+    if(!entry) return;
+    const c = computeEntry(entry);
+    if(c.counted){
+      const value = c.sold * it.price;
+      catTotals[it.category] = (catTotals[it.category]||0) + value;
+      grand += value;
+    }
+  });
+  return {catTotals, grand};
+}
+function itemsByCategoryOf(){ return itemsByCategory(state.items); }
+
+function moveItem(itemId, dir){
+  const it = state.items.find(i=>i.id===itemId);
+  if(!it) return;
+  const siblings = state.items.filter(i=>i.category===it.category).sort((a,b)=>(a.order||0)-(b.order||0));
+  const idx = siblings.findIndex(i=>i.id===itemId);
+  const swapWith = dir==="up" ? siblings[idx-1] : siblings[idx+1];
+  if(!swapWith) return;
+  const tmp = it.order; it.order = swapWith.order; swapWith.order = tmp;
+  saveState();
+}
+
+/* =========================================================
+   التبويبات
+========================================================= */
+let currentTab = "today";
+const collapsedCats = new Set();
+
+document.querySelectorAll("nav.tabbar button").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    currentTab = btn.dataset.tab;
+    document.querySelectorAll("nav.tabbar button").forEach(b=>b.classList.toggle("active", b===btn));
+    render();
+  });
+});
+
+function render(){
+  const main = document.getElementById("main");
+  const sub = document.getElementById("headerSub");
+  document.getElementById("stickyFooterRoot").innerHTML = ""; // نظّف الزر العائم قبل كل رسم، renderToday بيعيد تعبئته لو في جلسة مفتوحة
+  if(currentTab === "today"){ sub.textContent = "جرد سريع للكميات المباعة والمتبقي"; renderToday(main); }
+  else if(currentTab === "items"){ sub.textContent = "إدارة الأصناف والفئات والأسعار"; renderItems(main); }
+  else if(currentTab === "history"){ sub.textContent = "سجل الجرد السابق"; renderHistory(main); }
+}
+
+/* ---------- تبويب: اليوم ---------- */
+function renderToday(main){
+  let session = getOpenSession();
+
+  if(!session){
+    main.innerHTML = `
+      <div class="empty">
+        <div class="big">🧾</div>
+        <div style="font-weight:800; font-size:16px; margin-bottom:6px;">ما في جرد مفتوح اليوم</div>
+        <div class="muted" style="margin-bottom:18px;">ابدأ جرد جديد، وبيتم تعبئة "مستودع" لكل صنف تلقائيًا من آخر رصيد محفوظ.</div>
+        <button class="btn btn-primary" id="startBtn">ابدأ جرد جديد</button>
+      </div>`;
+    document.getElementById("startBtn").onclick = ()=>{
+      if(state.items.length===0){ showToast("أضف أصناف أولًا من تبويب الأصناف"); currentTab="items"; document.querySelector('[data-tab="items"]').click(); return; }
+      startSession(); render();
+    };
+    return;
+  }
+
+  ensureEntriesForNewItems(session);
+  const {catTotals, grand} = sessionTotals(session);
+  const catMap = itemsByCategoryOf();
+  const totalCounted = session.entries.filter(e=>e.closing!==null && e.closing!=="").length;
+  const totalItems = session.entries.length;
+
+  let html = `
+    <div class="receipt">
+      <div class="r-title"><span>جرد اليوم</span><span class="pill" id="countedPill">${totalCounted}/${totalItems} تم التسليم</span></div>
+      <div class="r-date">${fmtDateAr(session.date)}</div>
+      <div class="r-line"></div>
+      <div class="r-grid">
+        <div class="r-item"><span class="l">كاش ثابت (دينار)</span>
+          <input type="number" inputmode="decimal" style="border:none;background:transparent;font-size:17px;font-weight:800;padding:0;width:70px;font-family:inherit;color:var(--ink)" value="${session.cashFloat}" id="cashFloatInput">
+        </div>
+        <div class="r-item"><span class="l">عدد الأصناف</span><span class="v">${totalItems}</span></div>
+      </div>
+      <div class="r-line"></div>
+      <div class="total"><span class="l">صافي المبيعات</span><span class="v" id="grandTotalVal">${fmt(grand)} د.أ</span></div>
+    </div>
+  `;
+
+  Object.keys(catMap).forEach(cat=>{
+    const items = catMap[cat];
+    const collapsed = collapsedCats.has(cat);
+    html += `<div class="cat-card">
+      <div class="cat-head ${collapsed?'collapsed':''}" data-cat="${cat}">
+        <span class="name"><span class="chev">▾</span>${cat}</span>
+        <span class="sum">${fmt(catTotals[cat]||0)} د.أ</span>
+      </div>
+      <div class="cat-body ${collapsed?'collapsed':''}">`;
+    items.forEach(it=>{
+      const entry = session.entries.find(e=>e.itemId===it.id) || {opening:it.stock, received:0, closing:null};
+      const c = computeEntry(entry);
+      let resultHtml;
+      if(c.counted){
+        const value = c.sold * it.price;
+        const cls = c.sold < 0 ? "sold-warn" : "sold-ok";
+        resultHtml = `<span class="${cls}">المباع: <b>${fmt(c.sold)}</b>${c.sold<0?' ⚠️':''}</span><span>القيمة: <b>${fmt(value)} د.أ</b></span>`;
+      }else{
+        resultHtml = `<span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span>`;
+      }
+      html += `
+        <div class="item-row" data-item="${it.id}">
+          <div class="top">
+            <span class="iname">${it.name}</span>
+            <span class="iprice">${fmt(it.price)} د.أ/حبة</span>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr 1fr;">
+            <div class="field">
+              <label>استلام (بداية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="opening" value="${entry.opening}">
+            </div>
+            <div class="field">
+              <label>مستودع (إضافة أثناء المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="received" value="${entry.received}">
+            </div>
+          </div>
+          <div class="fields" style="grid-template-columns:1fr; margin-top:8px;">
+            <div class="field">
+              <label>تسليم (نهاية المناوبة)</label>
+              <input type="number" inputmode="decimal" data-field="closing" value="${entry.closing===null?'':entry.closing}" placeholder="عدّ الآن...">
+            </div>
+          </div>
+          <div class="result">${resultHtml}</div>
+        </div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  html += `<div style="height:96px;"></div>`; // مساحة فارغة حتى ما يختفي آخر صنف تحت الزر العائم وشريط التبويبات
+
+  main.innerHTML = html;
+
+  const footer = document.getElementById("stickyFooterRoot");
+  footer.innerHTML = `
+    <div class="sticky-actions">
+      <button class="btn btn-danger" id="cancelSessionBtn">إلغاء الجرد</button>
+      <button class="btn btn-primary btn-block" id="closeSessionBtn">إنهاء وحفظ الجرد</button>
+    </div>
+  `;
+
+  // events
+  main.querySelectorAll(".cat-head").forEach(h=>{
+    h.addEventListener("click", ()=>{
+      const cat = h.dataset.cat;
+      if(collapsedCats.has(cat)) collapsedCats.delete(cat); else collapsedCats.add(cat);
+      render();
+    });
+  });
+  main.querySelectorAll(".item-row input[data-field]").forEach(inp=>{
+    inp.addEventListener("input", ()=>{
+      const row = inp.closest(".item-row");
+      const itemId = row.dataset.item;
+      const entry = session.entries.find(e=>e.itemId===itemId);
+      const field = inp.dataset.field;
+      const val = inp.value;
+      entry[field] = val === "" ? (field==="closing"?null:0) : Number(val);
+      saveState();
+      updateLiveNumbers(session, itemId); // تحديث الأرقام فقط بدون إعادة رسم الحقول (حتى لا يفلت الكيبورد)
+    });
+  });
+  document.getElementById("cashFloatInput").addEventListener("input", (e)=>{
+    session.cashFloat = Number(e.target.value)||0;
+    state.cashFloat = session.cashFloat;
+    saveState();
+  });
+  document.getElementById("cancelSessionBtn").addEventListener("click", ()=>{
+    confirmModal("إلغاء الجرد؟", "بينحذف كل الإدخالات لهاي الجلسة ولا يتحفظ شي.", ()=>{
+      state.sessions = state.sessions.filter(s=>s.id!==session.id);
+      saveState(); render(); showToast("تم إلغاء الجرد");
+    });
+  });
+  document.getElementById("closeSessionBtn").addEventListener("click", ()=>{
+    const uncounted = session.entries.filter(e=>e.closing===null || e.closing==="");
+    const msg = uncounted.length
+      ? `في ${uncounted.length} صنف لسا ما اتعدّ، رح يتم تجاهله من الحساب ويضل رصيده متل ما هو. متأكد بدك تنهي؟`
+      : "بيتم حفظ الجرد وتحديث أرصدة الأصناف بناءً على الباقي المدخل.";
+    confirmModal("إنهاء وحفظ الجرد", msg, ()=>{
+      session.closed = true;
+      session.closedAt = new Date().toISOString();
+      // تحديث رصيد كل صنف = الباقي المعدود (إذا اتعدّ)
+      session.entries.forEach(entry=>{
+        if(entry.closing !== null && entry.closing !== ""){
+          const it = state.items.find(i=>i.id===entry.itemId);
+          if(it) it.stock = Number(entry.closing)||0;
+        }
+      });
+      saveState(); render(); showToast("تم حفظ الجرد ✔");
+      printSession(session); // احفظ نسخة PDF/صورة قبل بدء جرد جديد
+    });
+  });
+}
+
+// يحدث فقط أرقام النتيجة/الإجماليات دون إعادة بناء حقول الإدخال، حتى لا يفلت التركيز من لوحة المفاتيح أثناء الكتابة
+function updateLiveNumbers(session, itemId){
+  const it = state.items.find(i=>i.id===itemId);
+  const entry = session.entries.find(e=>e.itemId===itemId);
+  if(!it || !entry) return;
+
+  const row = document.querySelector(`.item-row[data-item="${CSS.escape(itemId)}"]`);
+  if(row){
+    const c = computeEntry(entry);
+    const resultEl = row.querySelector(".result");
+    if(resultEl){
+      if(c.counted){
+        const value = c.sold * it.price;
+        const cls = c.sold < 0 ? "sold-warn" : "sold-ok";
+        resultEl.innerHTML = `<span class="${cls}">المباع: <b>${fmt(c.sold)}</b>${c.sold<0?' ⚠️':''}</span><span>القيمة: <b>${fmt(value)} د.أ</b></span>`;
+      }else{
+        resultEl.innerHTML = `<span class="uncounted">لسا ما اتسلّم — أدخل عدد التسليم</span>`;
+      }
+    }
+  }
+
+  const {catTotals, grand} = sessionTotals(session);
+  const catHead = document.querySelector(`.cat-head[data-cat="${CSS.escape(it.category)}"] .sum`);
+  if(catHead) catHead.textContent = `${fmt(catTotals[it.category]||0)} د.أ`;
+
+  const grandEl = document.getElementById("grandTotalVal");
+  if(grandEl) grandEl.textContent = `${fmt(grand)} د.أ`;
+
+  const pillEl = document.getElementById("countedPill");
+  if(pillEl){
+    const totalCounted = session.entries.filter(e=>e.closing!==null && e.closing!=="").length;
+    pillEl.textContent = `${totalCounted}/${session.entries.length} تم التسليم`;
+  }
+}
+
+/* =========================================================
+   حفظ نسخة PDF / صورة (عبر مربع طباعة النظام)
+========================================================= */
+function buildPrintHTML(session){
+  const catMap = itemsByCategoryOf();
+  const {catTotals, grand} = sessionTotals(session);
+  const now = new Date();
+  let rows = "";
+  Object.keys(catMap).forEach(cat=>{
+    const arr = catMap[cat].filter(it=> session.entries.some(e=>e.itemId===it.id));
+    if(arr.length===0) return;
+    rows += `<tr class="p-cat-row"><td colspan="4">${cat}</td></tr>`;
+    arr.forEach(it=>{
+      const entry = session.entries.find(e=>e.itemId===it.id);
+      const c = computeEntry(entry);
+      if(!c.counted){
+        rows += `<tr><td>${it.name}</td><td colspan="3" class="p-muted">لم يُسلَّم</td></tr>`;
+      }else{
+        const value = c.sold * it.price;
+        rows += `<tr><td>${it.name}</td><td>${fmt(c.sold)}</td><td>${fmt(it.price)}</td><td>${fmt(value)}</td></tr>`;
+      }
+    });
+    rows += `<tr class="p-subtotal"><td colspan="3">إجمالي ${cat}</td><td>${fmt(catTotals[cat]||0)}</td></tr>`;
+  });
+
+  return `
+    <div class="p-header">
+      <h1>☕ جرد المحل</h1>
+      <div class="p-date">${fmtDateAr(session.date)}</div>
+      <div class="p-meta">وقت الإغلاق: ${now.toLocaleTimeString("ar-JO",{hour:'2-digit',minute:'2-digit'})} &nbsp;•&nbsp; كاش ثابت: ${fmt(session.cashFloat)} د.أ</div>
+    </div>
+    <table class="p-table">
+      <thead><tr><th>الصنف</th><th>المباع</th><th>السعر</th><th>القيمة</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <div class="p-grand">الإجمالي الكلي: ${fmt(grand)} د.أ</div>
+  `;
+}
+
+function printSession(session){
+  const area = document.getElementById("printArea");
+  area.innerHTML = buildPrintHTML(session);
+  // تأخير بسيط لضمان رسم المحتوى قبل فتح مربع الطباعة/الحفظ
+  requestAnimationFrame(()=>{
+    window.print();
+  });
+}
+window.addEventListener("afterprint", ()=>{
+  const area = document.getElementById("printArea");
+  if(area) area.innerHTML = "";
+});
+
+/* ---------- تبويب: الأصناف ---------- */
+function renderItems(main){
+  const catMap = itemsByCategoryOf();
+  const mode = state.sortMode || "manual";
+  const sortOptions = [
+    {key:"manual", label:"يدوي ↕"},
+    {key:"price_desc", label:"الأعلى سعرًا"},
+    {key:"price_asc", label:"الأقل سعرًا"},
+    {key:"name", label:"أبجديًا"},
+  ];
+  let html = `<div class="actions-bar" style="margin-top:6px;">
+      <button class="btn btn-ghost" id="addCatBtn">+ فئة جديدة</button>
+      <button class="btn btn-primary btn-block" id="addItemBtn">+ صنف جديد</button>
+    </div>`;
+
+  html += `<div class="section-title"><span>ترتيب الأصناف</span></div>
+    <div class="card" style="padding:10px 12px; display:flex; gap:8px; flex-wrap:wrap;">
+      ${sortOptions.map(o=>`<button class="sort-btn ${mode===o.key?'active':''}" data-sort="${o.key}">${o.label}</button>`).join("")}
+    </div>`;
+  if(mode==="manual"){
+    html += `<div class="muted" style="margin:2px 6px 4px;">استخدم الأسهم ▲▼ جنب كل صنف لترفعه أو تنزله ضمن فئته.</div>`;
+  }
+
+  if(state.items.length===0){
+    html += `<div class="empty"><div class="big">📦</div><div class="muted">ما في أصناف بعد. أضف أول صنف.</div></div>`;
+  }
+
+  Object.keys(catMap).forEach(cat=>{
+    const arr = catMap[cat];
+    html += `<div class="section-title"><span>${cat}</span><span class="badge">${arr.length} صنف</span></div>
+      <div class="card" style="padding:4px 14px;">`;
+    arr.forEach((it, idx)=>{
+      const arrows = mode==="manual" ? `
+          <button class="icon-btn" data-up="${it.id}" ${idx===0?'disabled':''}>▲</button>
+          <button class="icon-btn" data-down="${it.id}" ${idx===arr.length-1?'disabled':''}>▼</button>` : "";
+      html += `<div class="list-item">
+        <div>
+          <div class="li-main">${it.name}</div>
+          <div class="li-sub">${fmt(it.price)} د.أ &nbsp;•&nbsp; الرصيد الحالي: ${fmt(it.stock)}</div>
+        </div>
+        <div class="li-actions">
+          ${arrows}
+          <button class="icon-btn" data-edit="${it.id}">✏️</button>
+          <button class="icon-btn danger" data-del="${it.id}">🗑️</button>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  });
+
+  html += `<div class="section-title" style="margin-top:22px;"><span>الفئات</span></div>
+    <div class="card" style="padding:4px 14px;">`;
+  state.categories.forEach(cat=>{
+    const count = (catMap[cat]||[]).length;
+    html += `<div class="list-item">
+      <div>
+        <div class="li-main">${cat}</div>
+        <div class="li-sub">${count} صنف</div>
+      </div>
+      <div class="li-actions">
+        <button class="icon-btn danger" data-delcat="${cat}">🗑️</button>
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  main.innerHTML = html;
+
+  document.getElementById("addItemBtn").onclick = ()=> openItemModal(null);
+  document.getElementById("addCatBtn").onclick = ()=> openCategoryModal();
+  main.querySelectorAll("[data-sort]").forEach(b=>{
+    b.onclick = ()=>{
+      state.sortMode = b.dataset.sort;
+      saveState(); render();
+    };
+  });
+  main.querySelectorAll("[data-up]").forEach(b=> b.onclick = ()=>{ moveItem(b.dataset.up, "up"); render(); });
+  main.querySelectorAll("[data-down]").forEach(b=> b.onclick = ()=>{ moveItem(b.dataset.down, "down"); render(); });
+  main.querySelectorAll("[data-edit]").forEach(b=> b.onclick = ()=> openItemModal(b.dataset.edit));
+  main.querySelectorAll("[data-del]").forEach(b=> b.onclick = ()=>{
+    const it = state.items.find(i=>i.id===b.dataset.del);
+    confirmModal("حذف الصنف؟", `رح يتم حذف "${it.name}" نهائيًا. الجلسات السابقة بتضل محفوظة بأسمائها.`, ()=>{
+      state.items = state.items.filter(i=>i.id!==it.id);
+      saveState(); render(); showToast("تم الحذف");
+    });
+  });
+  main.querySelectorAll("[data-delcat]").forEach(b=>{
+    b.onclick = ()=>{
+      const cat = b.dataset.delcat;
+      const count = (catMap[cat]||[]).length;
+      if(count>0){ showToast(`ما بتقدر تحذف "${cat}" وفيها ${count} صنف`); return; }
+      confirmModal("حذف الفئة؟", `رح يتم حذف فئة "${cat}".`, ()=>{
+        state.categories = state.categories.filter(c=>c!==cat);
+        saveState(); render(); showToast("تم الحذف");
+      });
+    };
+  });
+}
+
+function openCategoryModal(){
+  openModal(`
+    <h2>فئة جديدة</h2>
+    <div class="form-group"><label>اسم الفئة</label><input id="mCatName" placeholder="مثال: حلويات"></div>
+    <button class="btn btn-primary btn-block" id="mCatSave">حفظ</button>
+  `, ()=>{
+    document.getElementById("mCatSave").onclick = ()=>{
+      const name = document.getElementById("mCatName").value.trim();
+      if(!name){ showToast("اكتب اسم الفئة"); return; }
+      if(state.categories.includes(name)){ showToast("الفئة موجودة أصلًا"); return; }
+      state.categories.push(name); saveState(); closeModal(); render(); showToast("تمت الإضافة");
+    };
+  });
+}
+
+function openItemModal(itemId){
+  const editing = !!itemId;
+  const it = editing ? state.items.find(i=>i.id===itemId) : {name:"", category: state.categories[0]||"", price:"", stock:0};
+  const catOptions = state.categories.map(c=>`<option value="${c}" ${c===it.category?'selected':''}>${c}</option>`).join("");
+  openModal(`
+    <h2>${editing? "تعديل صنف" : "صنف جديد"}</h2>
+    <div class="form-group"><label>اسم الصنف</label><input id="mName" value="${it.name}" placeholder="مثال: قهوة تركي"></div>
+    <div class="form-row">
+      <div class="form-group"><label>الفئة</label><select id="mCat">${catOptions}</select></div>
+      <div class="form-group"><label>السعر (د.أ)</label><input id="mPrice" type="number" inputmode="decimal" value="${it.price}"></div>
+    </div>
+    <div class="form-group"><label>الرصيد الحالي (سيُستخدم كـ "استلام" في أول جرد قادم)</label><input id="mStock" type="number" inputmode="decimal" value="${it.stock}"></div>
+    <button class="btn btn-primary btn-block" id="mItemSave">${editing?'حفظ التعديل':'إضافة'}</button>
+  `, ()=>{
+    document.getElementById("mItemSave").onclick = ()=>{
+      const name = document.getElementById("mName").value.trim();
+      const category = document.getElementById("mCat").value;
+      const price = Number(document.getElementById("mPrice").value)||0;
+      const stock = Number(document.getElementById("mStock").value)||0;
+      if(!name){ showToast("اكتب اسم الصنف"); return; }
+      if(editing){
+        Object.assign(it, {name, category, price, stock});
+      }else{
+        state.items.push({id:uid(), name, category, price, stock, order: state.nextOrder++});
+      }
+      saveState(); closeModal(); render(); showToast("تم الحفظ ✔");
+    };
+  });
+}
+
+/* ---------- تبويب: السجل ---------- */
+function renderHistory(main){
+  const closedSessions = state.sessions.filter(s=>s.closed).sort((a,b)=> new Date(b.date)-new Date(a.date) || (b.closedAt||"").localeCompare(a.closedAt||""));
+  if(closedSessions.length===0){
+    main.innerHTML = `<div class="empty"><div class="big">📖</div><div class="muted">ما في جرد محفوظ بعد.</div></div>`;
+    return;
+  }
+  let html = "";
+  closedSessions.forEach(s=>{
+    const {grand} = sessionTotals(s);
+    html += `<div class="card" data-session="${s.id}" style="cursor:pointer;">
+      <div class="row-between">
+        <div>
+          <div class="li-main">${fmtDateAr(s.date)}</div>
+          <div class="li-sub">كاش ثابت: ${fmt(s.cashFloat)} د.أ</div>
+        </div>
+        <div style="text-align:left;">
+          <div style="font-weight:900; font-size:17px; color:var(--coffee-dark);">${fmt(grand)} د.أ</div>
+          <div class="li-sub">صافي المبيعات</div>
+        </div>
+      </div>
+    </div>`;
+  });
+  main.innerHTML = html;
+  main.querySelectorAll("[data-session]").forEach(card=>{
+    card.addEventListener("click", ()=> openSessionDetail(card.dataset.session));
+  });
+}
+
+function openSessionDetail(sessionId){
+  const s = state.sessions.find(x=>x.id===sessionId);
+  const {catTotals, grand} = sessionTotals(s);
+  const catMap = itemsByCategoryOf();
+  let body = `<h2>جرد ${fmtDateAr(s.date)}</h2>`;
+  Object.keys(catMap).forEach(cat=>{
+    const rows = catMap[cat].map(it=>{
+      const entry = s.entries.find(e=>e.itemId===it.id);
+      if(!entry) return "";
+      const c = computeEntry(entry);
+      if(!c.counted) return `<div class="list-item"><div class="li-main">${it.name}</div><div class="li-sub uncounted">لم يُعدّ</div></div>`;
+      const value = c.sold*it.price;
+      return `<div class="list-item">
+        <div><div class="li-main">${it.name}</div><div class="li-sub">مباع: ${fmt(c.sold)} × ${fmt(it.price)}</div></div>
+        <div style="font-weight:800;">${fmt(value)} د.أ</div>
+      </div>`;
+    }).join("");
+    if(!rows) return;
+    body += `<div class="section-title"><span>${cat}</span><span class="badge">${fmt(catTotals[cat]||0)} د.أ</span></div>
+      <div class="card" style="padding:2px 14px;">${rows}</div>`;
+  });
+  body += `<div class="receipt" style="margin-top:16px;">
+    <div class="total"><span class="l">الإجمالي الكلي</span><span class="v">${fmt(grand)} د.أ</span></div>
+  </div>
+  <div class="actions-bar" style="margin-top:16px;">
+    <button class="btn btn-ghost btn-block" id="mPrintSession">📄 حفظ PDF / طباعة</button>
+  </div>
+  <button class="btn btn-danger btn-block" id="mDelSession">حذف هذا الجرد من السجل</button>`;
+  openModal(body, ()=>{
+    document.getElementById("mPrintSession").onclick = ()=> printSession(s);
+    document.getElementById("mDelSession").onclick = ()=>{
+      confirmModal("حذف الجرد من السجل؟", "هذا الإجراء لا يمكن التراجع عنه.", ()=>{
+        state.sessions = state.sessions.filter(x=>x.id!==sessionId);
+        saveState(); closeModal(); render(); showToast("تم الحذف");
+      });
+    };
+  });
+}
+
+/* =========================================================
+   نافذة عامة (Modal)
+========================================================= */
+function openModal(innerHtml, onMount){
+  const root = document.getElementById("modalRoot");
+  root.innerHTML = `<div class="modal-backdrop" id="mbg"><div class="modal" style="position:relative;">
+    <button class="close-x" id="mClose">✕</button>
+    ${innerHtml}
+  </div></div>`;
+  document.getElementById("mClose").onclick = closeModal;
+  document.getElementById("mbg").addEventListener("click", (e)=>{ if(e.target.id==="mbg") closeModal(); });
+  if(onMount) onMount();
+}
+function closeModal(){ document.getElementById("modalRoot").innerHTML = ""; }
+function confirmModal(title, msg, onConfirm){
+  openModal(`
+    <h2>${title}</h2>
+    <p class="muted" style="font-size:13.5px; line-height:1.7; margin-bottom:18px;">${msg}</p>
+    <div class="actions-bar" style="margin:0;">
+      <button class="btn btn-ghost" id="cAbort">تراجع</button>
+      <button class="btn btn-danger btn-block" id="cGo">تأكيد</button>
+    </div>
+  `, ()=>{
+    document.getElementById("cAbort").onclick = closeModal;
+    document.getElementById("cGo").onclick = ()=>{ closeModal(); onConfirm(); };
+  });
+}
+
+/* =========================================================
+   تشغيل
+========================================================= */
+render();
+</script>
+
+
+</body></html>
